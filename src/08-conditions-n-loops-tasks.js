@@ -486,8 +486,42 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const { length } = position[0];
+
+  const rows = [];
+  const columns = [];
+
+  let diag = [];
+  let reverseDiag = [];
+
+  for (let i = 0; i < length; i += 1) {
+    rows.push(position[i].join(''));
+    diag.push(position[i][i]);
+    reverseDiag.push(position[i][length - i - 1]);
+  }
+
+  diag = diag.join('');
+  reverseDiag = reverseDiag.join('');
+
+
+  for (let k = 0; k < length; k += 1) {
+    const result = [];
+    for (let m = 0; m < length; m += 1) {
+      result.push(position[m][k]);
+    }
+    columns.push(result.join(''));
+  }
+
+  if (rows.indexOf('XXX') !== -1 || columns.indexOf('XXX') !== -1
+    || diag === 'XXX' || reverseDiag === 'XXX') {
+    return 'X';
+  }
+  if (rows.indexOf('000') !== -1 || columns.indexOf('000') !== -1
+    || diag === '000' || reverseDiag === '000') {
+    return '0';
+  }
+  return undefined;
 }
 
 
